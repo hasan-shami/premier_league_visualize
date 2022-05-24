@@ -4,8 +4,6 @@ df = pd.read_excel(r'C:\Users\hasan.shami\Downloads\epl-2021-GMTStandardTime.xls
 df['Result_Home'] = df['Result'].apply(lambda x: str(x).split('-')[0]).astype(int)
 df['Result_Away'] = df['Result'].apply(lambda x: str(x).split('-')[1]).astype(int)
 
-df['Points Home'] = df.apply(lambda x: get_points_home(x), axis=1)
-df['Points Away'] = df.apply(lambda x: get_points_away(x), axis=1)
 
 
 def get_points_home(x):
@@ -24,6 +22,8 @@ def get_points_away(x):
         return 1
     else:
         return 3
+df['Points Home'] = df.apply(lambda x: get_points_home(x), axis=1)
+df['Points Away'] = df.apply(lambda x: get_points_away(x), axis=1)
 
 
 df2 = df.pivot_table(index='Round Number', columns=['Home Team','Away Team'], values = ['Points Home', 'Points Away'], aggfunc = sum)
